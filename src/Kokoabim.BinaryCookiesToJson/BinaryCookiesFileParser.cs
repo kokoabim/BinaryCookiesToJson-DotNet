@@ -1,15 +1,13 @@
-namespace BinaryCookiesToJson;
+namespace Kokoabim.BinaryCookiesToJson;
 
-internal static class BinaryCookiesFileParser
+public static class BinaryCookiesFileParser
 {
     // "cook"
     private const uint FileHeader = 1802465123;
 
     private const int LastEpochOf2000 = 978307200;
 
-    #region methods
-
-    public static IEnumerable<Cookie> ParseFile(string filePath)
+    public static IEnumerable<SafariCookie> ParseFile(string filePath)
     {
         using var stream = File.OpenRead(filePath);
         using var reader = new BinaryReader(stream);
@@ -21,7 +19,7 @@ internal static class BinaryCookiesFileParser
         var pageSizes = Enumerable.Range(0, pageCount).Select(_ => ReadInt32(reader, true)).ToArray();
         var pages = pageSizes.Select(reader.ReadBytes).ToArray();
 
-        List<Cookie> cookies = [];
+        List<SafariCookie> cookies = [];
 
         foreach (var page in pages)
         {
@@ -60,7 +58,7 @@ internal static class BinaryCookiesFileParser
                 var path = ReadString(cookieReader, pathOffset - 4);
                 var value = ReadString(cookieReader, valueOffset - 4);
 
-                cookies.Add(new Cookie
+                cookies.Add(new SafariCookie
                 {
                     Domain = domain,
                     Expires = DateTimeOffset.FromUnixTimeSeconds((long)expiresEpoch).LocalDateTime,
@@ -104,6 +102,4 @@ internal static class BinaryCookiesFileParser
         }
         return s;
     }
-
-    #endregion 
 }

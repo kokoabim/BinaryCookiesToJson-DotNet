@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using BinaryCookiesToJson;
+using Kokoabim.BinaryCookiesToJson;
 using Kokoabim.CommandLineInterface;
 
 var jsonOptions = new JsonSerializerOptions { WriteIndented = true };

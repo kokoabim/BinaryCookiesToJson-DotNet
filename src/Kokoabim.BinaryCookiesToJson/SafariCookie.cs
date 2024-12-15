@@ -1,8 +1,7 @@
-namespace BinaryCookiesToJson;
+namespace Kokoabim.BinaryCookiesToJson;
 
-internal class Cookie
+public class SafariCookie
 {
-    #region properties
     public DateTime Created { get; set; }
     public string Domain { get; set; } = default!;
     public DateTime Expires { get; set; }
@@ -11,5 +10,4 @@ internal class Cookie
     public string Path { get; set; } = default!;
     public bool Secure { get; set; }
     public string Value { get; set; } = default!;
-    #endregion 
 }

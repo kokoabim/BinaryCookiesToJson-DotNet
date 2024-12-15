@@ -5,6 +5,7 @@
     </ItemGroup>
 
     <PropertyGroup>
+        <DefaultNamespace>Kokoabim.BinaryCookiesToJson</DefaultNamespace>
         <AssemblyName>bc2j</AssemblyName>
         <AssemblyVersion>1.0</AssemblyVersion>
         <OutputType>Exe</OutputType>
