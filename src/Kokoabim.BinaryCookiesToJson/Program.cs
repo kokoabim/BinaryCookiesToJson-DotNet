@@ -15,8 +15,6 @@ var consoleApp = new ConsoleApp([
     titleText: "Binary cookies file to JSON file converter",
     asyncFunction: async context =>
     {
-        var inputFile = Environment.ExpandEnvironmentVariables(context.Get("input").AsString());
-
         var cookies = BinaryCookiesFileParser.ParseFile(context.Get("input").AsString());
         var json = JsonSerializer.Serialize(cookies, jsonOptions);
 
@@ -25,8 +23,6 @@ var consoleApp = new ConsoleApp([
             Console.WriteLine(JsonSerializer.Serialize(cookies, jsonOptions));
             return 0;
         }
-
-        var outputFile = context.Get("output").AsString();
 
         if (File.Exists(outputPath) && !context.GetSwitch("o").Exists)
         {
