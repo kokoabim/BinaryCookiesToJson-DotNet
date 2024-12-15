@@ -5,10 +5,13 @@ using Kokoabim.CommandLineInterface;
 var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
 
 var consoleApp = new ConsoleApp([
-        new ConsoleArgument("input", helpText: "Path to input binary cookies file", isRequired: true, constraints: ArgumentConstraints.FileMustExist,
-            preConstraintProcessing: arg => arg.Value is string v && !string.IsNullOrWhiteSpace(v) ? Environment.ExpandEnvironmentVariables(v) : arg.Value),
+        new ConsoleArgument("input",
+            helpText: "Path to input binary cookies file",
+            isRequired: true,
+            preProcesses: ArgumentPreProcesses.ExpandEnvironmentVariables,
+            constraints: ArgumentConstraints.FileMustExist),
 
-        new ConsoleArgument("output", helpText: "Path to output JSON file"),
+        new ConsoleArgument("output", helpText: "Path to output JSON file", preProcesses: ArgumentPreProcesses.ExpandEnvironmentVariables),
 
         new ConsoleArgument("overwrite", identifier: "o", helpText: "Overwrite output file if it exists", type: ArgumentType.Switch),
     ],
