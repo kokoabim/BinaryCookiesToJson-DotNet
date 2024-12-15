@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Kokoabim.CommandLineInterface\src\Kokoabim.CommandLineInterface\Kokoabim.CommandLineInterface.csproj" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <AssemblyName>bc2j</AssemblyName>
+        <AssemblyVersion>1.0</AssemblyVersion>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+</Project>
