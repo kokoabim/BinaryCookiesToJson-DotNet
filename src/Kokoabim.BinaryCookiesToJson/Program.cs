@@ -18,18 +18,18 @@ var consoleApp = new ConsoleApp([
     titleText: "Binary cookies file to JSON file converter",
     asyncFunction: async context =>
     {
-        var cookies = BinaryCookiesFileParser.ParseFile(context.Get("input").AsString());
+        var cookies = BinaryCookiesFileParser.ParseFile(context.GetString("input"));
         var json = JsonSerializer.Serialize(cookies, jsonOptions);
 
-        if (context.Get("output").GetValueOrNull() is not string outputPath)
+        if (context.GetStringOrDefault("output") is not string outputPath)
         {
             Console.WriteLine(JsonSerializer.Serialize(cookies, jsonOptions));
             return 0;
         }
 
-        if (File.Exists(outputPath) && !context.GetSwitch("o").Exists)
+        if (File.Exists(outputPath) && !context.HasSwitch("overwrite"))
         {
-            Console.WriteLine("Output file already exists. Use -o to overwrite.");
+            Console.WriteLine("Output file already exists. (use -o to overwrite)");
             return 1;
         }
 
