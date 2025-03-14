@@ -37,10 +37,9 @@ fi
 
 echo "Publishing project"
 rm -rf ./publish
-dotnet publish -c Release -r osx-arm64 -o ./publish src/Kokoabim.BinaryCookiesToJson/Kokoabim.BinaryCookiesToJson.csproj
+dotnet publish -c Release -r osx-arm64 -p:PublishSingleFile=true --self-contained false -o ./publish src/Kokoabim.BinaryCookiesToJson/Kokoabim.BinaryCookiesToJson.csproj
 chown -R spencer:staff ./publish
 
-echo "Copying published files"
-mkdir -p /opt/kokoabim/consoleapps/bc2j
-cp ./publish/* /opt/kokoabim/consoleapps/bc2j/
-chown -R spencer:staff /opt/kokoabim/consoleapps/bc2j
+echo "Copying executable to /opt/kokoabim/bin"
+cp ./publish/bc2j /opt/kokoabim/bin/bc2j
+chown -R spencer:staff /opt/kokoabim/bin/bc2j
