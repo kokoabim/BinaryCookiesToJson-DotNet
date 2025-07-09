@@ -21,6 +21,7 @@ var consoleApp = new ConsoleApp([
         new ConsoleArgument("value", identifier: "v", helpText: "Output values only", type: ArgumentType.Switch),
 
         new ConsoleArgument("join", identifier: "j", helpText: "Join output keyvalue pairs or values", type: ArgumentType.Switch),
+        new ConsoleArgument("no-newline", identifier: "n", helpText: "Output without newline at end", type: ArgumentType.Switch),
     ],
     titleText: "Binary cookies file to JSON file converter",
     asyncFunction: async context =>
@@ -42,7 +43,8 @@ var consoleApp = new ConsoleApp([
 
         if (context.GetStringOrDefault("output") is not string outputPath)
         {
-            Console.WriteLine(output);
+            if (context.HasSwitch("no-newline")) Console.Write(output);
+            else Console.WriteLine(output);
         }
         else if (File.Exists(outputPath) && !context.HasSwitch("overwrite"))
         {
