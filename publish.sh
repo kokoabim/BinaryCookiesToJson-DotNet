@@ -1,9 +1,9 @@
-#!/opt/homebrew/bin/bash
+#!/usr/bin/env bash
 
 set -eo pipefail
 
 script_name="${0##*/}"
-script_action="Publish to /opt/kokoabim/consoleapps"
+script_action="Publish to /opt/kokoabim/bin"
 
 yes=0
 while getopts "hy" opt; do
@@ -17,14 +17,14 @@ while getopts "hy" opt; do
     \?) exit 1 ;;
     esac
 done
-shift $(($OPTIND - 1))
+shift $((OPTIND - 1))
 
 function confirm_run() {
     if [[ ${yes:-false} == 1 ]]; then
         return
     fi
 
-    read -p "${script_action}? [y/N] " -n 1
+    read -r -p "${script_action}? [y/N] " -n 1
     [[ $REPLY == "" ]] && echo -en "\033[1A" >&2
     echo >&2
     [[ $REPLY =~ ^[Yy]$ ]]

@@ -3,9 +3,9 @@ namespace Kokoabim.BinaryCookiesToJson;
 public static class BinaryCookiesFileParser
 {
     // "cook"
-    private const uint FileHeader = 1802465123;
+    private const uint _fileHeader = 1802465123;
 
-    private const int LastEpochOf2000 = 978307200;
+    private const int _lastEpochOf2000 = 978307200;
 
     public static IEnumerable<SafariCookie> ParseFile(string filePath)
     {
@@ -13,7 +13,7 @@ public static class BinaryCookiesFileParser
         using var reader = new BinaryReader(stream);
 
         var fileHeader = ReadInt32(reader);
-        if (fileHeader != FileHeader) throw new InvalidDataException("Invalid binary cookies file");
+        if (fileHeader != _fileHeader) throw new InvalidDataException("Invalid binary cookies file");
 
         var pageCount = ReadInt32(reader, true);
         var pageSizes = Enumerable.Range(0, pageCount).Select(_ => ReadInt32(reader, true)).ToArray();
@@ -32,7 +32,7 @@ public static class BinaryCookiesFileParser
 
             foreach (var cookieOffset in cookieOffsets)
             {
-                pageReader.BaseStream.Seek(cookieOffset, SeekOrigin.Begin);
+                _ = pageReader.BaseStream.Seek(cookieOffset, SeekOrigin.Begin);
 
                 var cookieSize = ReadInt32(pageReader);
                 var cookieReader = new BinaryReader(new MemoryStream(pageReader.ReadBytes(cookieSize)));
@@ -50,8 +50,8 @@ public static class BinaryCookiesFileParser
 
                 _ = ReadDouble(cookieReader);
 
-                var expiresEpoch = ReadDouble(cookieReader) + LastEpochOf2000;
-                var creationEpoch = ReadDouble(cookieReader) + LastEpochOf2000;
+                var expiresEpoch = ReadDouble(cookieReader) + _lastEpochOf2000;
+                var creationEpoch = ReadDouble(cookieReader) + _lastEpochOf2000;
 
                 var domain = ReadString(cookieReader, domainOffset - 4);
                 var name = ReadString(cookieReader, nameOffset - 4);
@@ -91,7 +91,7 @@ public static class BinaryCookiesFileParser
 
     private static string ReadString(BinaryReader reader, int offset)
     {
-        reader.BaseStream.Seek(offset, SeekOrigin.Begin);
+        _ = reader.BaseStream.Seek(offset, SeekOrigin.Begin);
 
         string s = "";
         while (true)

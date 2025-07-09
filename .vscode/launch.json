@@ -8,11 +8,8 @@
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/src/Kokoabim.BinaryCookiesToJson/bin/Debug/net9.0/bc2j",
             "args": [
-                "%HOME%/Library/Containers/com.apple.Safari/Data/Library/Cookies/Cookies.binarycookies"
+                "--help"
             ],
-            "cwd": "${workspaceFolder}/src/Kokoabim.BinaryCookiesToJson",
-            "console": "internalConsole",
-            "stopAtEntry": false,
             "logging": {
                 "moduleLoad": false
             }
