@@ -30,7 +30,7 @@ var consoleApp = new ConsoleApp([
         if (context.GetOptionValueOrDefault("name") is string name && !string.IsNullOrEmpty(name)) cookies = cookies.Where(cookie => cookie.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         if (!cookies.Any())
         {
-            Console.WriteLine("No cookies found matching the specified criteria.");
+            Console.Error.WriteLine("No cookies found matching the specified criteria.");
             return 1;
         }
 
@@ -46,7 +46,7 @@ var consoleApp = new ConsoleApp([
         }
         else if (File.Exists(outputPath) && !context.HasSwitch("overwrite"))
         {
-            Console.WriteLine("Output file already exists. (use -o to overwrite)");
+            Console.Error.WriteLine("Output file already exists. (use -o to overwrite)");
             return 1;
         }
         else
