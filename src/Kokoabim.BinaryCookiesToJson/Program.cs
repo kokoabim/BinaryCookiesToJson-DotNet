@@ -12,16 +12,15 @@ var consoleApp = new ConsoleApp([
             constraints: ArgumentConstraints.FileMustExist),
 
         new ConsoleArgument("output", helpText: "Path to output JSON file", preProcesses: ArgumentPreProcesses.ExpandEnvironmentVariables),
-
         new ConsoleArgument("overwrite", identifier: "o", helpText: "Overwrite output file if it exists", type: ArgumentType.Switch),
 
         new ConsoleArgument("domain", identifier: "d", helpText: "Filter cookies by domain", type: ArgumentType.Option),
-
         new ConsoleArgument("name", identifier: "n", helpText: "Filter cookies by name", type: ArgumentType.Option),
 
-        new ConsoleArgument("raw-value", identifier: "r", helpText: "Overwrite raw values", type: ArgumentType.Switch),
+        new ConsoleArgument("keyvalue", identifier: "k", helpText: "Output key=value pairs", type: ArgumentType.Switch),
+        new ConsoleArgument("value", identifier: "v", helpText: "Output values only", type: ArgumentType.Switch),
 
-        new ConsoleArgument("join", identifier: "j", helpText: "Join multiple raw values", type: ArgumentType.Switch),
+        new ConsoleArgument("join", identifier: "j", helpText: "Join output keyvalue pairs or values", type: ArgumentType.Switch),
     ],
     titleText: "Binary cookies file to JSON file converter",
     asyncFunction: async context =>
@@ -37,8 +36,8 @@ var consoleApp = new ConsoleApp([
 
         var joinDelimiter = context.HasSwitch("join") ? "; " : "\n";
 
-        var output = context.HasSwitch("join") || context.HasSwitch("raw-value")
-            ? cookies.Select(cookie => $"{cookie.Name}={cookie.Value}").Aggregate((current, next) => $"{current}{joinDelimiter}{next}")
+        var output = context.HasSwitch("join") || context.HasSwitch("keyvalue") || context.HasSwitch("value")
+            ? cookies.Select(cookie => context.HasSwitch("value") ? $"{cookie.Value}" : $"{cookie.Name}={cookie.Value}").Aggregate((current, next) => $"{current}{joinDelimiter}{next}")
             : JsonSerializer.Serialize(cookies, jsonOptions);
 
         if (context.GetStringOrDefault("output") is not string outputPath)
