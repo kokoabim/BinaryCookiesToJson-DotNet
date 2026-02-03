@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-src/Kokoabim.BinaryCookiesToJson/bin/Debug/net9.0/bc2j "$@"
+src/Kokoabim.BinaryCookiesToJson/bin/Debug/net10.0/bc2j "$@"

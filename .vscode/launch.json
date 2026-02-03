@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Kokoabim.BinaryCookiesToJson/bin/Debug/net9.0/bc2j",
+            "program": "${workspaceFolder}/src/Kokoabim.BinaryCookiesToJson/bin/Debug/net10.0/bc2j",
             "args": [
                 "--help"
             ],
