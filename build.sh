@@ -31,7 +31,7 @@ while getopts "dhmy" opt; do
         ;;
     m)
         action="Build $project for multiple architectures"
-        archs=("osx-arm64" "osx-x64" "linux-x64" "linux-arm64" "win-x64" "win-arm64") 
+        archs=("osx-arm64" "osx-x64" "linux-x64" "linux-arm64" "win-x64" "win-arm64" "win-x86") 
         ;;
     y) yes=1 ;;
     \?) exit 1 ;;
